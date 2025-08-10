@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import About from '@/components/About'
 import Projects from '@/components/Projects'
 import Contact from '@/components/Contact'
+import Footer from '@/components/Footer'
 
 // Dynamically import the 3D background to avoid SSR issues
 const BackgroundScene = dynamic(() => import('@/components/BackgroundScene'), {
@@ -25,6 +26,7 @@ export default function Home() {
         <About />
         <Projects />
         <Contact />
+        <Footer />
       </div>
     </main>
   )

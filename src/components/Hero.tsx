@@ -91,7 +91,7 @@ const Hero = () => {
       {/* Main content - chỉ hiện khi showText = true */}
       {showText && !isLoading && (
         <div 
-          className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center max-w-6xl mx-auto min-h-[70vh] transition-all duration-1000 relative z-20 ${
+          className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center max-w-6xl mx-auto min-h-[70vh] mt-20 transition-all duration-1000 relative z-20 ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
@@ -125,7 +125,7 @@ const Hero = () => {
                 Hà Quang Trung
               </h1>
               <p className="text-xl md:text-2xl lg:text-3xl font-light text-cyan-300" style={{textShadow: '0 2px 8px rgba(0,255,255,0.2)'}}>
-                Developer
+                Backend Developer
               </p>
             </div>
 
@@ -168,29 +168,40 @@ const Hero = () => {
             <div className={`flex flex-col sm:flex-row gap-4 pt-4 transition-all duration-700 delay-1100 ${
               isVisible && scrollY < 200 ? 'transform translate-y-0 opacity-100' : 'transform translate-y-4 opacity-0'
             }`}>
-              <button className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+              <a href="#projects" className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 text-center">
                 Xem dự án
-              </button>
-              <button className="px-8 py-3 border border-cyan-400 text-cyan-400 rounded-full font-medium hover:bg-cyan-400 hover:text-black transition-all duration-300">
+              </a>
+              <a 
+                href="https://drive.google.com/file/d/10g79X6UNPRjCzLKXRmvlc2N8oFc7wQOh/view?usp=drivesdk" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-8 py-3 border border-cyan-400 text-cyan-400 rounded-full font-medium hover:bg-cyan-400 hover:text-black transition-all duration-300 text-center"
+              >
                 Tải CV
-              </button>
+              </a>
             </div>
           </div>
 
-          {/* Cột phải: Mô tả bản thân */}
+          {/* Cột phải: Khung "Về tôi" */}
           <div className={`flex flex-col justify-center transition-all duration-1000 ease-out delay-200 ${
             isVisible && scrollY < 200 ? 'transform translate-x-0 opacity-100' : 
             scrollY >= 200 ? 'transform translate-x-full opacity-0' : 'transform translate-x-full opacity-0'
           }`}>
-            <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-cyan-400/10">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center md:text-left" style={{textShadow: '0 2px 4px rgba(0,0,0,0.7)'}}>
-                Về tôi
+            <div className="bg-black/30 backdrop-blur-md rounded-2xl p-8 border border-cyan-400/20 shadow-xl hover:border-cyan-400/40 transition-all duration-300">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center md:text-left" style={{textShadow: '0 4px 8px rgba(0,255,255,0.2)'}}>
+                <span className="bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent">Giới thiệu</span>
               </h2>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-center md:text-left" style={{textShadow: '0 1px 2px rgba(0,0,0,0.8)'}}>
-                Là một sinh viên năm cuối chuyên ngành công nghệ phần mềm. Mình đam mê khám phá các sản phẩm công nghệ mang tính đột phá,
-                từ phát triển website, mobile app cho đến các ứng dụng trí tuệ nhân tạo. Đây là không gian để mình kể câu chuyện,
-                dự án và tầm nhìn tương lai.
-              </p>
+              <div className="space-y-4">
+                <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-center md:text-left" style={{textShadow: '0 1px 2px rgba(0,0,0,0.8)'}}>
+                  Là một sinh viên năm cuối chuyên ngành công nghệ phần mềm. Mình đam mê khám phá các sản phẩm công nghệ mang tính đột phá,
+                  từ phát triển website, mobile app cho đến các ứng dụng trí tuệ nhân tạo.
+                </p>
+                <p className="text-base md:text-lg text-cyan-200 leading-relaxed text-center md:text-left font-medium" style={{textShadow: '0 1px 2px rgba(0,0,0,0.8)'}}>
+                  Đây là không gian để mình chia sẻ câu chuyện, dự án và tầm nhìn tương lai.
+                </p>
+                
+                
+              </div>
             </div>
           </div>
 

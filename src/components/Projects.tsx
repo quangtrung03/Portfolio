@@ -3,31 +3,31 @@
 const Projects = () => {
   const projects = [
     {
-      title: "Autonomous Research Agent",
-      description: "An AI system that independently conducts scientific research, generates hypotheses, and designs experiments.",
-      tech: ["PyTorch", "Transformers", "Reinforcement Learning"],
-      status: "In Development",
+      title: "Website Bán Hàng Online",
+      description: "Ứng dụng web thương mại điện tử với đầy đủ tính năng giỏ hàng, thanh toán, quản lý sản phẩm và admin dashboard.",
+      tech: ["React", "Node.js", "MongoDB", "Express"],
+      status: "Hoàn thành",
       gradient: "from-cyan-500 to-blue-500"
     },
     {
-      title: "Neural Architecture Evolution",
-      description: "Evolutionary algorithms that automatically discover and optimize neural network architectures for specific tasks.",
-      tech: ["TensorFlow", "Genetic Algorithms", "AutoML"],
-      status: "Production",
+      title: "Ứng dụng Quản lý Sinh viên",
+      description: "Hệ thống quản lý thông tin sinh viên, điểm số, lịch học và thời khóa biểu với giao diện thân thiện.",
+      tech: ["Java", "MySQL", "JavaFX", "JDBC"],
+      status: "Đang phát triển",
       gradient: "from-purple-500 to-pink-500"
     },
     {
-      title: "Continual Learning Framework",
-      description: "A framework for training AI models that learn continuously without forgetting previous knowledge.",
-      tech: ["JAX", "Meta-Learning", "Memory Networks"],
-      status: "Research",
+      title: "Game Puzzle 2D",
+      description: "Trò chơi giải đố 2D với nhiều cấp độ khác nhau, hệ thống điểm số và lưu trữ tiến trình người chơi.",
+      tech: ["Unity", "C#", "SQLite", "UI Design"],
+      status: "Hoàn thành",
       gradient: "from-green-500 to-teal-500"
     },
     {
-      title: "Multi-Modal Reasoning",
-      description: "Advanced AI that can understand and reason across text, images, audio, and video simultaneously.",
-      tech: ["Vision Transformers", "CLIP", "Multi-Modal Fusion"],
-      status: "Beta",
+      title: "Chatbot AI Tư vấn",
+      description: "Chatbot thông minh sử dụng API OpenAI để tư vấn về các môn học và định hướng nghề nghiệp cho sinh viên.",
+      tech: ["Python", "OpenAI API", "Flask", "HTML/CSS"],
+      status: "Thử nghiệm",
       gradient: "from-orange-500 to-red-500"
     }
   ]
@@ -37,10 +37,10 @@ const Projects = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Our <span className="bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent">Projects</span>
+            Dự Án <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">Của Tôi</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Breakthrough AI systems that push the boundaries of what&apos;s possible in machine intelligence.
+            Những dự án thực tế tôi đã và đang phát triển trong quá trình học tập và rèn luyện kỹ năng lập trình.
           </p>
         </div>
 
@@ -86,10 +86,10 @@ const Projects = () => {
               {/* Action Buttons */}
               <div className="flex space-x-4">
                 <button className="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300">
-                  Learn More
+                  Xem Chi Tiết
                 </button>
                 <button className="py-2 px-4 border border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-black transition-all duration-300">
-                  Demo
+                  GitHub
                 </button>
               </div>
             </div>
@@ -99,10 +99,10 @@ const Projects = () => {
         {/* Call to Action */}
         <div className="text-center mt-16">
           <p className="text-gray-300 mb-6">
-            Interested in collaborating on cutting-edge AI research?
+            Bạn có ý tưởng dự án thú vị? Hãy cùng tôi thực hiện nhé!
           </p>
           <button className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
-            Get In Touch
+            Liên Hệ Hợp Tác
           </button>
         </div>
       </div>
