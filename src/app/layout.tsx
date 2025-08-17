@@ -5,8 +5,13 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Portfolio - Self-Evolving Machine Intelligence',
-  description: 'Building Self-Evolving Machine Intelligence to Solve the World\'s Most Challenging Problems',
+  title: 'Hà Quang Trung - Portfolio',
+  description: 'Frontend Developer Portfolio - Hà Quang Trung',
+  icons: {
+    icon: '/images/logomili.png',
+    shortcut: '/images/logomili.png',
+    apple: '/images/logomili.png',
+  },
 }
 
 export default function RootLayout({

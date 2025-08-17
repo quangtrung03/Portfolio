@@ -172,7 +172,7 @@ const Hero = () => {
                 Xem dự án
               </a>
               <a 
-                href="https://drive.google.com/file/d/10g79X6UNPRjCzLKXRmvlc2N8oFc7wQOh/view?usp=drivesdk" 
+                href="https://drive.google.com/file/d/18Ec4YF0gMFWYyVSN_NN86IxuIPraFgAe/view?usp=drivesdk" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-8 py-3 border border-cyan-400 text-cyan-400 rounded-full font-medium hover:bg-cyan-400 hover:text-black transition-all duration-300 text-center"
