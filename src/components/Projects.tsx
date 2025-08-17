@@ -7,28 +7,36 @@ const Projects = () => {
       description: "Ứng dụng web thương mại điện tử với đầy đủ tính năng giỏ hàng, thanh toán, quản lý sản phẩm và admin dashboard.",
       tech: ["React", "Node.js", "MongoDB", "Express"],
       status: "Hoàn thành",
-      gradient: "from-cyan-500 to-blue-500"
+      gradient: "from-cyan-500 to-blue-500",
+      github: "https://github.com/quangtrung03/Flutter-Fontend",
+      demo: "https://flutter-fontend.vercel.app/"
     },
     {
       title: "Ứng dụng Quản lý Sinh viên",
       description: "Hệ thống quản lý thông tin sinh viên, điểm số, lịch học và thời khóa biểu với giao diện thân thiện.",
       tech: ["Java", "MySQL", "JavaFX", "JDBC"],
       status: "Đang phát triển",
-      gradient: "from-purple-500 to-pink-500"
+      gradient: "from-purple-500 to-pink-500",
+      github: "https://github.com/quangtrung03/student-management",
+      demo: null
     },
     {
       title: "Game Puzzle 2D",
       description: "Trò chơi giải đố 2D với nhiều cấp độ khác nhau, hệ thống điểm số và lưu trữ tiến trình người chơi.",
       tech: ["Unity", "C#", "SQLite", "UI Design"],
-      status: "Hoàn thành",
-      gradient: "from-green-500 to-teal-500"
+      status: "Đang phát triển",
+      gradient: "from-green-500 to-teal-500",
+      github: "https://github.com/quangtrung03/puzzle-game-2d",
+      demo: "https://puzzle-game-demo.itch.io"
     },
     {
       title: "Chatbot AI Tư vấn",
       description: "Chatbot thông minh sử dụng API OpenAI để tư vấn về các môn học và định hướng nghề nghiệp cho sinh viên.",
       tech: ["Python", "OpenAI API", "Flask", "HTML/CSS"],
       status: "Thử nghiệm",
-      gradient: "from-orange-500 to-red-500"
+      gradient: "from-orange-500 to-red-500",
+      github: "https://github.com/quangtrung03/ai-chatbot",
+      demo: "https://ai-chatbot-demo.herokuapp.com"
     }
   ]
 
@@ -85,12 +93,31 @@ const Projects = () => {
 
               {/* Action Buttons */}
               <div className="flex space-x-4">
-                <button className="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300">
-                  Xem Chi Tiết
-                </button>
-                <button className="py-2 px-4 border border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-black transition-all duration-300">
+                {project.demo ? (
+                  <a 
+                    href={project.demo} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 text-center"
+                  >
+                    Xem Chi Tiết
+                  </a>
+                ) : (
+                  <button 
+                    className="flex-1 py-2 px-4 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg font-medium cursor-not-allowed"
+                    disabled
+                  >
+                    Đang phát triển
+                  </button>
+                )}
+                <a 
+                  href={project.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="py-2 px-4 border border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-black transition-all duration-300"
+                >
                   GitHub
-                </button>
+                </a>
               </div>
             </div>
           ))}
@@ -101,9 +128,12 @@ const Projects = () => {
           <p className="text-gray-300 mb-6">
             Bạn có ý tưởng dự án thú vị? Hãy cùng tôi thực hiện nhé!
           </p>
-          <button className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+          <a 
+            href="#contact"
+            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 inline-block"
+          >
             Liên Hệ Hợp Tác
-          </button>
+          </a>
         </div>
       </div>
     </section>
