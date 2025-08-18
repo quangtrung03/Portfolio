@@ -1,14 +1,54 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 const About = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true)
+
+  useEffect(() => {
+    // Check theme on mount
+    const theme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    setIsDarkMode(theme === 'dark' || (!theme && prefersDark))
+
+    // Listen for theme changes
+    const handleThemeChange = () => {
+      const currentTheme = localStorage.getItem('theme')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      setIsDarkMode(currentTheme === 'dark' || (!currentTheme && prefersDark))
+    }
+
+    window.addEventListener('storage', handleThemeChange)
+    
+    // Custom event listener for theme changes
+    const handleCustomThemeChange = (e: any) => {
+      setIsDarkMode(e.detail.isDarkMode)
+    }
+    
+    window.addEventListener('theme-change', handleCustomThemeChange)
+
+    return () => {
+      window.removeEventListener('storage', handleThemeChange)
+      window.removeEventListener('theme-change', handleCustomThemeChange)
+    }
+  }, [])
+
   return (
     <section id="about" className="min-h-screen py-20 px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Về Tôi & <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">Mục Tiêu</span>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 ${
+            isDarkMode ? 'text-white' : 'text-gray-800'
+          }`}>
+            Về Tôi & <span className={`bg-clip-text text-transparent ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400' 
+                : 'bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900'
+            }`}>Mục Tiêu</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Mình là sinh viên năm cuối ngành Công nghệ Thông tin, đam mê xây dựng các giải pháp phần mềm thực tiễn. 
             Mục tiêu của mình là tham gia kỳ thực tập để áp dụng kỹ năng về lập trình web và mobile, làm việc trong 
             môi trường chuyên nghiệp và học hỏi từ những lập trình viên giàu kinh nghiệm.
@@ -17,40 +57,76 @@ const About = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Feature Card 1 */}
-          <div className="bg-black/20 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 hover:border-cyan-400/50 transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center mb-4">
+          <div className={`backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2 ${
+            isDarkMode 
+              ? 'bg-black/20 border-cyan-400/20 hover:border-cyan-400/50' 
+              : 'bg-white/20 border-gray-700/20 hover:border-gray-700/50'
+          }`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-500' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-800'
+            }`}>
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-3">Phát triển Web & Mobile</h3>
-            <p className="text-gray-300">
+            <h3 className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
+              isDarkMode ? 'text-white' : 'text-gray-800'
+            }`}>Phát triển Web & Mobile</h3>
+            <p className={`transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>
               Kinh nghiệm xây dựng website và ứng dụng di động với các công nghệ hiện đại như React và Flutter.
             </p>
           </div>
 
           {/* Feature Card 2 */}
-          <div className="bg-black/20 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 hover:border-cyan-400/50 transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center mb-4">
+          <div className={`backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2 ${
+            isDarkMode 
+              ? 'bg-black/20 border-cyan-400/20 hover:border-cyan-400/50' 
+              : 'bg-white/20 border-gray-700/20 hover:border-gray-700/50'
+          }`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-500' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-800'
+            }`}>
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-3">Giải quyết vấn đề</h3>
-            <p className="text-gray-300">
+            <h3 className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
+              isDarkMode ? 'text-white' : 'text-gray-800'
+            }`}>Giải quyết vấn đề</h3>
+            <p className={`transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>
               Khả năng phân tích yêu cầu, thiết kế và triển khai giải pháp hiệu quả.
             </p>
           </div>
 
           {/* Feature Card 3 */}
-          <div className="bg-black/20 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 hover:border-cyan-400/50 transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center mb-4">
+          <div className={`backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2 ${
+            isDarkMode 
+              ? 'bg-black/20 border-cyan-400/20 hover:border-cyan-400/50' 
+              : 'bg-white/20 border-gray-700/20 hover:border-gray-700/50'
+          }`}>
+            <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-500 to-blue-500' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-800'
+            }`}>
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-3">Học hỏi liên tục</h3>
-            <p className="text-gray-300">
+            <h3 className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
+              isDarkMode ? 'text-white' : 'text-gray-800'
+            }`}>Học hỏi liên tục</h3>
+            <p className={`transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>
               Luôn tìm tòi công nghệ mới và rèn luyện kỹ năng thông qua các dự án thực tế.
             </p>
           </div>
@@ -59,40 +135,72 @@ const About = () => {
         {/* Stats Section */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="text-center group">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+            <div className={`text-3xl md:text-4xl font-bold bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 to-white' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-900'
+            }`}>
               10+
             </div>
-            <p className="text-gray-300 mt-2">Dự án học tập & cá nhân đã hoàn thành</p>
+            <p className={`mt-2 transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>Dự án học tập & cá nhân đã hoàn thành</p>
           </div>
           <div className="text-center group">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+            <div className={`text-3xl md:text-4xl font-bold bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 to-white' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-900'
+            }`}>
               5+
             </div>
-            <p className="text-gray-300 mt-2">Ngôn ngữ lập trình đã sử dụng</p>
+            <p className={`mt-2 transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>Ngôn ngữ lập trình đã sử dụng</p>
           </div>
           <div className="text-center group">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+            <div className={`text-3xl md:text-4xl font-bold bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 to-white' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-900'
+            }`}>
               15+
             </div>
-            <p className="text-gray-300 mt-2">Công nghệ & framework đã sử dụng</p>
+            <p className={`mt-2 transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>Công nghệ & framework đã sử dụng</p>
           </div>
           <div className="text-center group">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+            <div className={`text-3xl md:text-4xl font-bold bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 to-white' 
+                : 'bg-gradient-to-r from-gray-700 to-gray-900'
+            }`}>
               500+
             </div>
-            <p className="text-gray-300 mt-2">Giờ coding thực tế</p>
+            <p className={`mt-2 transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>Giờ coding thực tế</p>
           </div>
         </div>
 
         {/* Additional Skills Section */}
         <div className="mt-16">
-          <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
-            Kỹ năng & <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">Công nghệ</span>
+          <h3 className={`text-2xl md:text-3xl font-bold text-center mb-8 transition-colors duration-300 ${
+            isDarkMode ? 'text-white' : 'text-gray-800'
+          }`}>
+            Kỹ năng & <span className={`bg-clip-text text-transparent ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400' 
+                : 'bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900'
+            }`}>Công nghệ</span>
           </h3>
           
           {/* Current Skills */}
           <div className="mb-12">
-            <h4 className="text-lg font-semibold text-gray-300 text-center mb-6">Thành thạo hiện tại</h4>
+            <h4 className={`text-lg font-semibold text-center mb-6 transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>Thành thạo hiện tại</h4>
             <div className="flex flex-wrap justify-center gap-6">
               {[
                 { name: 'React', icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg', category: 'Frontend' },
@@ -110,7 +218,11 @@ const About = () => {
               ].map((skill, index) => (
                 <div 
                   key={index}
-                  className="group relative flex flex-col items-center p-4 bg-black/30 border border-cyan-400/30 rounded-xl hover:border-cyan-400/60 hover:bg-cyan-400/10 transition-all duration-300 cursor-pointer"
+                  className={`group relative flex flex-col items-center p-4 border rounded-xl transition-all duration-300 cursor-pointer ${
+                    isDarkMode 
+                      ? 'bg-black/30 border-cyan-400/30 hover:border-cyan-400/60 hover:bg-cyan-400/10' 
+                      : 'bg-white/30 border-gray-700/30 hover:border-gray-700/60 hover:bg-gray-700/10'
+                  }`}
                   title={`${skill.name} - ${skill.category}`}
                   aria-label={`${skill.name} technology in ${skill.category} category`}
                 >
@@ -119,7 +231,9 @@ const About = () => {
                     alt={skill.name} 
                     className="w-10 h-10 mb-2 group-hover:scale-110 transition-transform duration-300"
                   />
-                  <span className="text-cyan-300 text-sm font-medium">{skill.name}</span>
+                  <span className={`text-sm font-medium transition-colors duration-300 ${
+                    isDarkMode ? 'text-cyan-300' : 'text-gray-700'
+                  }`}>{skill.name}</span>
                   
                   {/* Tooltip */}
                   <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-20">
@@ -133,8 +247,12 @@ const About = () => {
 
           {/* Currently Learning */}
           <div>
-            <h4 className="text-lg font-semibold text-gray-300 text-center mb-6 flex items-center justify-center space-x-2">
-              <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <h4 className={`text-lg font-semibold text-center mb-6 flex items-center justify-center space-x-2 transition-colors duration-300 ${
+              isDarkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              <svg className={`w-5 h-5 transition-colors duration-300 ${
+                isDarkMode ? 'text-yellow-400' : 'text-orange-600'
+              }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
               <span>Hiện đang học</span>
@@ -148,7 +266,11 @@ const About = () => {
               ].map((skill, index) => (
                 <div 
                   key={index}
-                  className="group relative flex flex-col items-center p-3 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-400/30 rounded-xl hover:border-yellow-400/60 hover:bg-yellow-400/10 transition-all duration-300 cursor-pointer"
+                  className={`group relative flex flex-col items-center p-3 border rounded-xl transition-all duration-300 cursor-pointer ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border-yellow-400/30 hover:border-yellow-400/60 hover:bg-yellow-400/10' 
+                      : 'bg-gradient-to-br from-orange-500/10 to-red-500/10 border-orange-600/30 hover:border-orange-600/60 hover:bg-orange-600/10'
+                  }`}
                   title={`${skill.name} - ${skill.progress}`}
                   aria-label={`Currently learning ${skill.name}, progress: ${skill.progress}`}
                 >
@@ -158,14 +280,24 @@ const About = () => {
                       alt={skill.name} 
                       className="w-8 h-8 mb-2 group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                    <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full animate-pulse ${
+                      isDarkMode ? 'bg-yellow-400' : 'bg-orange-600'
+                    }`}></div>
                   </div>
-                  <span className="text-yellow-300 text-sm font-medium">{skill.name}</span>
+                  <span className={`text-sm font-medium transition-colors duration-300 ${
+                    isDarkMode ? 'text-yellow-300' : 'text-orange-700'
+                  }`}>{skill.name}</span>
                   
                   {/* Progress Tooltip */}
-                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-yellow-900/90 text-yellow-100 text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-20">
+                  <div className={`absolute -top-12 left-1/2 transform -translate-x-1/2 text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-20 ${
+                    isDarkMode 
+                      ? 'bg-yellow-900/90 text-yellow-100' 
+                      : 'bg-orange-800/90 text-orange-100'
+                  }`}>
                     {skill.progress}
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-yellow-900/90"></div>
+                    <div className={`absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent ${
+                      isDarkMode ? 'border-t-yellow-900/90' : 'border-t-orange-800/90'
+                    }`}></div>
                   </div>
                 </div>
               ))}
@@ -175,13 +307,23 @@ const About = () => {
 
         {/* Learning Journey Timeline */}
         <div className="mt-20">
-          <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-12">
-            Hành trình <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">Học tập</span>
+          <h3 className={`text-2xl md:text-3xl font-bold text-center mb-12 transition-colors duration-300 ${
+            isDarkMode ? 'text-white' : 'text-gray-800'
+          }`}>
+            Hành trình <span className={`bg-clip-text text-transparent ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400' 
+                : 'bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900'
+            }`}>Học tập</span>
           </h3>
           
           <div className="relative max-w-4xl mx-auto">
             {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-600"></div>
+            <div className={`absolute left-1/2 transform -translate-x-1/2 w-1 h-full ${
+              isDarkMode 
+                ? 'bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-600' 
+                : 'bg-gradient-to-b from-gray-600 via-gray-700 to-gray-800'
+            }`}></div>
             
             {/* Timeline Items */}
             <div className="space-y-12">

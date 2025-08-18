@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo, useEffect } from 'react'
+import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
@@ -49,6 +49,25 @@ function NeuralNetwork() {
   const nodesRef = useRef<THREE.Group>(null)
   const connectionsRef = useRef<THREE.Group>(null)
   const pulsesRef = useRef<THREE.Group>(null)
+  const [isLightMode, setIsLightMode] = useState(false)
+
+  // Detect theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsLightMode(document.documentElement.classList.contains('light-mode'))
+    }
+    
+    checkTheme()
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
   
   // Tạo dữ liệu cho các neurons và connections
   const { nodePositions, connections, nodeGeometry, layerInfo } = useMemo(() => {
@@ -126,14 +145,14 @@ function NeuralNetwork() {
     }
   }, [])
 
-  // Material cho neurons với hiệu ứng glow
+  // Material cho neurons với hiệu ứng glow - theme-aware
   const nodeMaterial = useMemo(() => {
-    return new THREE.ShaderMaterial({
+    const material = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
-        colorActive: { value: new THREE.Color('#00aaff') },
-        colorInactive: { value: new THREE.Color('#004466') },
-        colorCore: { value: new THREE.Color('#0088cc') }
+        colorActive: { value: isLightMode ? new THREE.Color('#0891b2') : new THREE.Color('#00aaff') },
+        colorInactive: { value: isLightMode ? new THREE.Color('#64748b') : new THREE.Color('#004466') },
+        colorCore: { value: isLightMode ? new THREE.Color('#0369a1') : new THREE.Color('#0088cc') }
       },
       vertexShader: `
         uniform float time;
@@ -181,15 +200,22 @@ function NeuralNetwork() {
       transparent: true,
       blending: THREE.AdditiveBlending
     })
-  }, [])
 
-  // Material cho connections
+    // Update colors when theme changes
+    material.uniforms.colorActive.value = isLightMode ? new THREE.Color('#0891b2') : new THREE.Color('#00aaff')
+    material.uniforms.colorInactive.value = isLightMode ? new THREE.Color('#64748b') : new THREE.Color('#004466')
+    material.uniforms.colorCore.value = isLightMode ? new THREE.Color('#0369a1') : new THREE.Color('#0088cc')
+
+    return material
+  }, [isLightMode])
+
+  // Material cho connections - theme-aware
   const connectionMaterial = useMemo(() => {
-    return new THREE.ShaderMaterial({
+    const material = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
-        connectionColor: { value: new THREE.Color('#0088ff') },
-        pulseColor: { value: new THREE.Color('#00ffff') }
+        connectionColor: { value: isLightMode ? new THREE.Color('#0891b2') : new THREE.Color('#0088ff') },
+        pulseColor: { value: isLightMode ? new THREE.Color('#0369a1') : new THREE.Color('#00ffff') }
       },
       vertexShader: `
         uniform float time;
@@ -224,7 +250,13 @@ function NeuralNetwork() {
       transparent: true,
       blending: THREE.AdditiveBlending
     })
-  }, [])
+
+    // Update colors when theme changes
+    material.uniforms.connectionColor.value = isLightMode ? new THREE.Color('#0891b2') : new THREE.Color('#0088ff')
+    material.uniforms.pulseColor.value = isLightMode ? new THREE.Color('#0369a1') : new THREE.Color('#00ffff')
+
+    return material
+  }, [isLightMode])
 
   // Tạo geometry cho connections
   const connectionGeometries = useMemo(() => {
@@ -469,10 +501,34 @@ function InteractiveCamera() {
 }
 
 function BackgroundScene() {
+  const [isLightMode, setIsLightMode] = useState(false)
+
+  // Detect theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsLightMode(document.documentElement.classList.contains('light-mode'))
+    }
+    
+    checkTheme()
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
+
+  const backgroundGradient = isLightMode 
+    ? 'radial-gradient(circle, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%)'
+    : 'radial-gradient(circle, #0a0a0a 0%, #001122 50%, #000000 100%)'
+
   return (
     <Canvas 
       camera={{ position: [25, 10, 25], fov: 75 }}
-      style={{ background: 'radial-gradient(circle, #0a0a0a 0%, #001122 50%, #000000 100%)' }}
+      style={{ background: backgroundGradient }}
     >
       {/* OrbitControls từ @react-three/drei */}
       <OrbitControls
@@ -492,14 +548,14 @@ function BackgroundScene() {
       
       <NeuralNetwork />
       
-      {/* Ánh sáng tổng thể nhẹ */}
-      <ambientLight intensity={0.2} />
+      {/* Ánh sáng tổng thể nhẹ - theme aware */}
+      <ambientLight intensity={isLightMode ? 0.6 : 0.2} />
       
-      {/* Ánh sáng chính - tạo hiệu ứng cyberpunk */}
+      {/* Ánh sáng chính - tạo hiệu ứng cyberpunk hoặc clean */}
       <directionalLight 
         position={[20, 20, 20]} 
-        intensity={0.5} 
-        color="#0066ff" 
+        intensity={isLightMode ? 0.3 : 0.5} 
+        color={isLightMode ? "#0891b2" : "#0066ff"} 
       />
       
       {/* Ánh sáng cyan - neural activity */}
